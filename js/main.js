@@ -1,4 +1,4 @@
-import Phaser from "./phaser.js";
+import Phaser from "./lib/phaser.js";
 import Game from "./game.js";
 
 export default new Phaser.Game({
