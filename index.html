@@ -1,12 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>Multi language translator</title>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script type="text/javascript" src="./js/game.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	    <meta name="HandheldFriendly" content="true" />
+        <!-- <script type="text/javascript" src="./js/phaser.min.js"></script> -->
+        <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
+        <style>
+            html, body {
+                height: 100%;
+                width: 100%;
+                overflow: hidden;
+                touch-action: none;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+                background: #333;
+                overflow: hidden;
+                display:block;
+                position: absolute;
+                
+            }
+            canvas {
+                text-align:center;
+            }
+        </style>
     </head>
     <body>
-
+        <script type="module" src="./js/main.js"></script>
     </body>
 </html>
