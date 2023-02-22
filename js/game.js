@@ -11,20 +11,24 @@ export default class Game extends Phaser.Scene
 
     preload() 
     {
-        this.load.html('inputform', 'assets/text/inputbox.html');
     }
 
     create() 
     {
-        var  returnBox = this.returnBoxProp;
+        console.log(this);
+        var returnBox = this.returnBoxProp;
+        var textStyles = { color: '#fff', fontSize: '24px', fontFamily: 'Arial' };
+        var counter = 0;
         
         var random = Phaser.Math.Between(0, 100);
         console.log(random);
 
-        var height = window.innerHeight;
-        var width = window.innerWidth;
+        var height = this.scale.height;
+        var width = this.scale.width;
+
+        var counterMessage = this.add.text(width / 10, height / 10, `Hits: ${counter}`, textStyles);
         
-        returnBox = this.add.text(width/2, height/2, '', { color: '#fff', fontSize: '24px', fontFamily: 'Arial' });
+        returnBox = this.add.text(width/2, height/2, '', textStyles);
 
         var inputBox = this.add.dom(
             width / 2, 
@@ -47,21 +51,41 @@ export default class Game extends Phaser.Scene
         });
 
         console.log(`height: ${height} width: ${width}`);
-
+        
         returnBox.setInteractive();
-        returnBox.on('mouseover', function (event) 
+        
+        this.input.on('pointerover', function (event, gameObjects) 
         {
-            returnBox.setStyle({ color: '#ff0' });
+            console.log('pointerover');
+            let margin = 300;
+
+            do
+            {
+                gameObjects[0].x = gameObjects[0].x + Phaser.Math.Between(-100, 100);
+                gameObjects[0].y = gameObjects[0].y + Phaser.Math.Between(-100, 100);
+            } while (gameObjects[0].x > width - margin || gameObjects[0].x < margin || gameObjects[0].y > height - margin || gameObjects[0].y < margin);
+
+            counter++;
+
+            counterMessage.text = `Hits: ${counter}`;
         });
 
-        returnBox.inputEnabled = true;
 
 
 
 
 
-        var messageBox = this.add.text(width /2, height - 50, `height: ${height} width: ${width}`, { color: '#fff', fontSize: '24px', fontFamily: 'Arial' });
+        var messageBox = this.add.text(width /2, height - 50, `height: ${height} width: ${width}`, textStyles);
         messageBox.x = width / 2 - messageBox.width / 2;
+
+        this.scale.on('resize', function (baseSize)
+        {
+            var scaleX = window.innerWidth / baseSize.width;
+            var scaleY = window.innerHeight / baseSize.height;
+            var scale = Math.min(scaleX, scaleY);
+            console.log('resize', scale);
+            messageBox.text = `height: ${baseSize.width * scale} width: ${baseSize.height * scale}`;
+        }, this);
     };
 
     update()

@@ -6,6 +6,10 @@ export default new Phaser.Game({
     parent: 'default',
     width: 1920,
 	height: 1080,
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
     backgroundColor: '#000000',
     scene: [Game],
     dom: {
